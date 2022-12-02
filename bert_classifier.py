@@ -28,7 +28,7 @@ class TextDataset(Dataset):
     def __getitem__(self, index: int):
         data_row = self.data.iloc[index]
         _id = data_row['id']
-        comment_text = data_row.Data[0]
+        comment_text = data_row.Data
 
         if not self.test:
             labels = data_row[self.label_clms]
@@ -144,8 +144,6 @@ def train(train_dataloader, model, device, optimizer, scheduler):
 def evaluate(val_dataloader, model, device):
     if DEBUG:
         print("\nEvaluating...")
-    # t0 = time.time()
-    # deactivate dropout layers
     model.eval()
 
     total_loss, total_accuracy = 0, 0

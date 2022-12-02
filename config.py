@@ -1,4 +1,4 @@
-TRAIN = 'data.txt'
+TRAIN = 'df_top.json'
 EPOCHS = 5
 MAX_TOKEN_COUNT = 128
 BATCH_SIZE = 16
