@@ -8,7 +8,10 @@ from sklearn.model_selection import train_test_split
 
 pl.seed_everything(RANDOM_SEED)
 
-df = pd.read_json(TRAIN)
+if TOXIC_FLAG:
+    df = pd.read_csv(TOXIC)
+else:
+    df = pd.read_json(TRAIN)
 df.describe()
 df.head()
 train_df, val_df = train_test_split(df)
@@ -87,8 +90,8 @@ def evaluate_roc(y_pred, y_true):
     fpr, tpr, threshold = roc_curve(y_true, y_pred)
     roc_auc = auc(fpr, tpr)
     print(f'AUC: {roc_auc:.4f}')
-    # accuracy = accuracy_score(y_true, y_pred)
-    # print(f'Accuracy: {accuracy * 100:.2f}%')
+    accuracy = accuracy_score(y_true, y_pred)
+    print(f'Accuracy: {accuracy * 100:.2f}%')
 
 
 avg_loss, total_preds, total_labels = evaluate(val_dataloader, model, device)

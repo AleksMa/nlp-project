@@ -28,7 +28,10 @@ class TextDataset(Dataset):
     def __getitem__(self, index: int):
         data_row = self.data.iloc[index]
         _id = data_row['id']
-        comment_text = data_row.Data
+        if TOXIC_FLAG:
+            comment_text = data_row.comment_text
+        else:
+            comment_text = data_row.Data
 
         if not self.test:
             labels = data_row[self.label_clms]

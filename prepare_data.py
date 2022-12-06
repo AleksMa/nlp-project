@@ -30,6 +30,7 @@ for i, r in df.iterrows():
     text = re.sub('«', '', text)
     text = re.sub('%', '', text)
     text = re.sub('\w+\.ru', '', text)
+    text = text.lower()
     r['Data'] = text
     print(text)
 
@@ -43,14 +44,6 @@ for i, r in df.iterrows():
     df['id'][i] = i
 
 df.drop_duplicates(subset=['Data'], inplace=True)
-"""
-df = df[df.columns.drop(list(df.filter(regex='^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$')))]
-df = df[df.columns.drop(list(df.filter(regex='^(http|https)://')))]
-df = df[df.columns.drop(list(df.filter(regex='\d+')))]
-df = df[df.columns.drop(list(df.filter(regex='\-')))]
-df = df[df.columns.drop(list(df.filter(regex='\,')))]
-df = df[df.columns.drop(list(df.filter(regex='\w+\.ru')))]
-"""
 c_text = []
 for i in df['Data']:
     j = ' '.join([w for w in [w for w in i.split() if not w in stop_words]])
